@@ -1,0 +1,6 @@
+[submodule "dependencies/hidapi"]
+	path = dependencies/hidapi
+	url = https://github.com/libusb/hidapi.git
+[submodule "dependencies/simpleble"]
+	path = dependencies/simpleble
+	url = https://github.com/OpenBluetoothToolbox/SimpleBLE.git
