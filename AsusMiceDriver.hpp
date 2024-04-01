@@ -10,6 +10,7 @@ struct AsusMiceConfig {
 	uint8_t profile_amount;
 	uint8_t version_type;
 	bool	is_wireless;
+	bool	has_battery;
 };
 
 #define ASUS_ROG_CHAKRAM_X_2_4GHZ_PID 							0x1A1A
@@ -31,11 +32,38 @@ class AsusMiceDriver {
 			uint16_t	active_dpi;
 		};
 
+		struct BatteryInfo {
+			bool	_is_ok;
+
+			uint8_t battery_charge;
+			uint8_t time_to_sleep;
+			uint8_t warning_at;
+			bool	is_charging;
+
+			uint8_t unknown1;
+			uint8_t unknown2;
+		};
+
 		enum ConnectionType {
 			USB,
 			DONGLE_2_4,
 			BLE,
 			OMNI_2_4,
+		};
+
+		enum BatteryTimeToSleepValues {
+			ONE_MIN = 0,
+			TWO_MIN = 1,
+			THREE_MIN = 2,
+			FIVE_MIN = 3,
+			TEN_MIN = 4,
+			NEVER = 255,
+		};
+
+		// every other value corresponds to the percentage,
+		// at which a warning should be given
+		enum BatteryWarningValues {
+			NEVER = 0,
 		};
 
 		AsusMiceDriver () {};
@@ -44,6 +72,8 @@ class AsusMiceDriver {
 
 		DeviceInfo get_device_info ();
 		void set_profile (uint8_t profile);
+
+		BatteryInfo get_battery_info ();
 
 		AsusMiceConfig 	config;
 		hid_device*		device;
@@ -57,6 +87,7 @@ static std::map<uint16_t, AsusMiceConfig> asus_mice_config = {
 			AsusMiceDriver::ConnectionType::DONGLE_2_4,
 			5,
 			4,
+			true,
 			true
 		}
 	},
@@ -66,6 +97,7 @@ static std::map<uint16_t, AsusMiceConfig> asus_mice_config = {
 			AsusMiceDriver::ConnectionType::DONGLE_2_4,
 			5,
 			3,
+			true,
 			true
 		}
 	},
@@ -75,7 +107,8 @@ static std::map<uint16_t, AsusMiceConfig> asus_mice_config = {
 			AsusMiceDriver::ConnectionType::USB,
 			5,
 			3,
-			false
+			false,
+			true
 		}
 	},
 	{
@@ -84,6 +117,7 @@ static std::map<uint16_t, AsusMiceConfig> asus_mice_config = {
 			AsusMiceDriver::ConnectionType::DONGLE_2_4,
 			5,
 			4,
+			true,
 			true
 		}
 	}

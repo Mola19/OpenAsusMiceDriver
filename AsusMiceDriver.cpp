@@ -101,3 +101,34 @@ void AsusMiceDriver::set_profile (uint8_t profile) {
     hid_write(device, req, 65);
 }
 
+AsusMiceDriver::BatteryInfo AsusMiceDriver::get_battery_info () {
+    if (!config.has_battery) {
+        BatteryInfo info;
+        info._is_ok = false;
+        return info;
+    };
+
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+	
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x12;
+    req[0x02]   = 0x07;
+
+    hid_write(device, req, 65);
+
+    unsigned char res[65];
+    hid_read(device, res, 65);
+
+    BatteryInfo info;
+    info._is_ok = false;
+
+	info.battery_charge = res[4];
+	info.time_to_sleep 	= res[5];
+	info.warning_at		= res[6];
+	info.is_charging	= (bool) res[9];
+	info.unknown1		= res[7];
+	info.unknown2	    = res[8];
+
+	return info;
+}
