@@ -14,11 +14,11 @@ This is a library to control modern Asus mice
 
 | Device                           | Support |
 | -------------------------------- | :-----: |
-| Asus ROG Chakram X [^1]          |    ⚙    |
+| Asus ROG Chakram X[^1]          |    ⚙    |
 | Asus ROG Spatha X                |    ⚙    |
 | Asus ROG Keris Wireless AimPoint |    ⚙    |
 
-[^1] Also available as Asus ROG Chakram X Origin, but exactly the same besides lacking Qi charging
+[^1]: Also available as Asus ROG Chakram X Origin, but exactly the same besides lacking Qi charging
 
 Feature support for every device is specified [here](supported_devices.md)
 
