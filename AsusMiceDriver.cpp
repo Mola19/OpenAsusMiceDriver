@@ -101,10 +101,3 @@ void AsusMiceDriver::set_profile (uint8_t profile) {
     hid_write(device, req, 65);
 }
 
-void AsusMiceDriver::send_data (uint8_t* bytes, size_t size) {
-
-}
-
-void AsusMiceDriver::read_data (uint8_t* bytes, size_t size) {
-
-}

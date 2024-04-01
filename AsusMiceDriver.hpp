@@ -48,9 +48,6 @@ class AsusMiceDriver {
 		AsusMiceConfig 	config;
 		hid_device*		device;
 		std::string		name;
-	private:
-		void send_data (uint8_t* bytes, size_t size);
-		void read_data (uint8_t* bytes, size_t size);
 };
 
 static std::map<uint16_t, AsusMiceConfig> asus_mice_config = {
