@@ -22,17 +22,17 @@
 
 | Device                           | Change Profile | Save Profile | Reset Profile | Reset All Profiles |
 | -------------------------------- | :------------: | :----------: | :-----------: | :----------------: |
-| Asus ROG Chakram X[^1]          |       ✔        |      ❌       |       ❌       |         ❌          |
-| Asus ROG Spatha X                |       ✔        |      ❌       |       ❌       |         ❌          |
-| Asus ROG Keris Wireless AimPoint |       ✔        |      ❌       |       ❌       |         ❌          |
+| Asus ROG Chakram X[^1]           |       ✔        |      ⚙       |       ⚙       |         ⚙          |
+| Asus ROG Spatha X                |       ✔        |      ⚙       |       ⚙       |         ⚙          |
+| Asus ROG Keris Wireless AimPoint |       ✔        |      ⚙       |       ⚙       |         ⚙          |
 
 ## General Information
 
-| Device                           | Change Profile | Save Profile | Reset Profile | Reset All Profiles |
-| -------------------------------- | :------------: | :----------: | :-----------: | :----------------: |
-| Asus ROG Chakram X[^1]          |       ✔        |      ❌       |       ❌       |         ❌          |
-| Asus ROG Spatha X                |       ✔        |      ❌       |       ❌       |         ❌          |
-| Asus ROG Keris Wireless AimPoint |       ✔        |      ❌       |       ❌       |         ❌          |
+| Device                           | Get General Information |
+| -------------------------------- | :---------------------: |
+| Asus ROG Chakram X[^1]           |            ✔            |
+| Asus ROG Spatha X                |            ✔            |
+| Asus ROG Keris Wireless AimPoint |            ✔            |
 
 ## Performance Features
 
@@ -48,7 +48,12 @@ Todo
 
 ## Battery Features
 
-Todo
+| Device                           | Get Battery Information | Get Wake State | Set Battery Settings |
+| -------------------------------- | :---------------------: | :------------: | :------------------: |
+| Asus ROG Chakram X[^1]           |            ✔            |       ⚙        |          ⚙           |
+| Asus ROG Spatha X                |            ✔            |       ⚙        |          ⚙           |
+| Asus ROG Keris Wireless AimPoint |            ✔            |       ⚙        |          ⚙           |
+
 
 ## Events
 
