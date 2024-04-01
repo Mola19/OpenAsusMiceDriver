@@ -132,3 +132,22 @@ AsusMiceDriver::BatteryInfo AsusMiceDriver::get_battery_info () {
 
 	return info;
 }
+
+bool AsusMiceDriver::get_wake_state () {
+    if (!config.has_battery) return true;
+
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+	
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x12;
+    req[0x02]   = 0x00;
+    req[0x03]   = 0x02;
+
+    hid_write(device, req, 65);
+
+    unsigned char res[65];
+    hid_read(device, res, 65);
+
+	return (bool) res[4];
+}

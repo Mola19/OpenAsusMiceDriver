@@ -74,6 +74,7 @@ class AsusMiceDriver {
 		void set_profile (uint8_t profile);
 
 		BatteryInfo get_battery_info ();
+		bool get_wake_state();
 
 		AsusMiceConfig 	config;
 		hid_device*		device;
