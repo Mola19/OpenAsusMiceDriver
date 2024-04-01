@@ -52,18 +52,18 @@ class AsusMiceDriver {
 		};
 
 		enum BatteryTimeToSleepValues {
-			ONE_MIN = 0,
-			TWO_MIN = 1,
-			THREE_MIN = 2,
-			FIVE_MIN = 3,
-			TEN_MIN = 4,
-			NEVER = 255,
+			TIME_TO_SLEEP_ONE_MIN = 0,
+			TIME_TO_SLEEP_TWO_MIN = 1,
+			TIME_TO_SLEEP_THREE_MIN = 2,
+			TIME_TO_SLEEP_FIVE_MIN = 3,
+			TIME_TO_SLEEP_TEN_MIN = 4,
+			TIME_TO_SLEEP_NEVER = 255,
 		};
 
 		// every other value corresponds to the percentage,
 		// at which a warning should be given
 		enum BatteryWarningValues {
-			NEVER = 0,
+			WARNING_NEVER = 0,
 		};
 
 		AsusMiceDriver () {};
