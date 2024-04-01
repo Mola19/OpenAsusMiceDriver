@@ -22,7 +22,6 @@ struct AsusMiceConfig {
 class AsusMiceDriver {
 	public: 
 		struct DeviceInfo {
-			bool		is_wireless;
 			std::string version;
 			std::string dongle_version;
 			uint8_t 	profile_size;

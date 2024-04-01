@@ -78,7 +78,6 @@ AsusMiceDriver::DeviceInfo AsusMiceDriver::get_device_info () {
 
 	DeviceInfo info;
 
-	info.is_wireless 		= config.is_wireless;
 	info.version 			= version;
 	info.dongle_version 	= dongle_version;
 	info.profile_size		= res[8];
