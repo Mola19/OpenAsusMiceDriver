@@ -9,6 +9,8 @@
 	- [Key Remapping](#key-remapping)
 	- [Battery Features](#battery-features)
 	- [Events](#events)
+	- [Calibration](#calibration)
+	- [Firmware updates](#firmware-updates)
 
 ## Legend
 
@@ -61,5 +63,11 @@ Todo
 ## Events
 
 Todo
+
+## Calibration
+Todo, but not a priority
+
+## Firmware updates
+Todo, but REALLY not a priority, because complicated and dangerous
 
 [^1]: Also available as Asus ROG Chakram X Origin, but exactly the same besides lacking Qi charging
