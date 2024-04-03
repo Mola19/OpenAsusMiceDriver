@@ -21,6 +21,8 @@ AsusMiceDriver::DeviceInfo AsusMiceDriver::get_device_info () {
 	
     req[0x00]   = 0x00;
     req[0x01]   = 0x12;
+    req[0x02]   = 0x00;
+    req[0x02]   = 0x00;
 
     hid_write(device, req, 65);
 
@@ -34,7 +36,7 @@ AsusMiceDriver::DeviceInfo AsusMiceDriver::get_device_info () {
     {
         case 0:
             {
-                unsigned char* offset = res + (config.is_wireless ? 13 : 4);
+                uint8_t* offset = res + 4;
                 version = std::string(offset, offset + 4);
             }
             break;
@@ -42,18 +44,19 @@ AsusMiceDriver::DeviceInfo AsusMiceDriver::get_device_info () {
 
         case 1:
             {
-                unsigned char* offset = res + (config.is_wireless ? 13 : 4);
-                version = std::string(offset, offset + 4);
-                version = "0." + version.substr(0, 2) + "." + version.substr(2, 2);
+                char _ver[16];
+                snprintf(_ver, 16, "%2d.%02d.%02d", res[5], res[6], res[7]);
+                version = std::string(_ver);
+                // no dongle only for non-wireless Strix Impact
             }
             break;
 
         case 2:
             {
-                char _ver[16];
-                int offset = (config.is_wireless ? 13 : 4);
-                snprintf(_ver, 16, "%2d.%02d.%02d", res[offset + 1], res[offset + 2], res[offset + 3]);
-                version = std::string(_ver);
+                uint8_t* offset = res + 4;
+                version = std::string(offset, offset + 4);
+                version = "0." + version.substr(0, 2) + "." + version.substr(2, 2);
+                // no dongle only for non-wireless TUF M5
             }
             break;
 
