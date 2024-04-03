@@ -17,6 +17,7 @@ struct AsusMiceConfig {
 #define ASUS_ROG_SPATHA_X_USB_PID  								0x1977
 #define ASUS_ROG_SPATHA_X_2_4GHZ_PID  							0x1979
 #define ASUS_ROG_KERIS_WIRELESS_AIMPOINT_2_4GHZ_PID  			0x1A68
+#define ASUS_ROG_PUGIO_PID							  			0x1846
 
 
 
@@ -120,6 +121,16 @@ static std::map<uint16_t, AsusMiceConfig> asus_mice_config = {
 			4,
 			true,
 			true
+		}
+	},
+	{
+		ASUS_ROG_PUGIO_PID,
+		{
+			AsusMiceDriver::ConnectionType::USB,
+			3,
+			0,
+			false,
+			false
 		}
 	}
 };

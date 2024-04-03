@@ -53,5 +53,13 @@ static std::vector<HIDDetectionInformation> hid_devices {
 		0x0000,
 		0xFF01,
 		0x0001
+	},
+	{
+		"Asus ROG Pugio",
+		0x0B05,
+		0x1846,
+		0x0002,
+		0xFF01,
+		0x0001
 	}
 };

@@ -25,6 +25,7 @@
 | Asus ROG Chakram X[^1]           |       ✔        |      ⚙       |       ⚙       |         ⚙          |
 | Asus ROG Spatha X                |       ✔        |      ⚙       |       ⚙       |         ⚙          |
 | Asus ROG Keris Wireless AimPoint |       ✔        |      ⚙       |       ⚙       |         ⚙          |
+| Asus ROG Pugio                   |       ✔        |      ⚙       |       ⚙       |         ⚙          |
 
 ## General Information
 
@@ -33,6 +34,7 @@
 | Asus ROG Chakram X[^1]           |            ✔            |
 | Asus ROG Spatha X                |            ✔            |
 | Asus ROG Keris Wireless AimPoint |            ✔            |
+| Asus ROG Pugio                   |            ✔            |
 
 ## Performance Features
 
@@ -53,6 +55,7 @@ Todo
 | Asus ROG Chakram X[^1]           |            ✔            |       ✔        |          ⚙           |
 | Asus ROG Spatha X                |            ✔            |       ✔        |          ⚙           |
 | Asus ROG Keris Wireless AimPoint |            ✔            |       ✔        |          ⚙           |
+| Asus ROG Pugio                   |            ❌            |       ❌        |          ❌           |
 
 
 ## Events
