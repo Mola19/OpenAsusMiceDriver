@@ -107,6 +107,47 @@ void AsusMiceDriver::set_profile (uint8_t profile) {
     req[0x03]   = profile;
 
     hid_write(device, req, 65);
+
+    await_response(req+1, 3);
+}
+
+void AsusMiceDriver::save_current_profile () {
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x50;
+    req[0x02]   = 0x03;
+
+    hid_write(device, req, 65);
+
+    await_response(req+1, 2);
+}
+
+void AsusMiceDriver::reset_all_profiles () {
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x50;
+    req[0x02]   = 0x04;
+
+    hid_write(device, req, 65);
+
+    await_response(req+1, 2);
+}
+
+void AsusMiceDriver::reset_current_profile () {
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x50;
+    req[0x02]   = 0x05;
+
+    hid_write(device, req, 65);
+
+    await_response(req+1, 2);
 }
 
 AsusMiceDriver::BatteryInfo AsusMiceDriver::get_battery_info () {
