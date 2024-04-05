@@ -1,17 +1,23 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include <thread>
+
+#include <hidapi.h>
 
 #include "AsusMiceDriver.hpp"
-#include "hidapi.h"
+#include "ReadCallback.hpp"
 
 AsusMiceDriver::AsusMiceDriver (std::string name, hid_device* hiddev, uint16_t pid) {
     this->name = name;
     device = hiddev;
 	config = asus_mice_config[pid];
+
+    cb = new ReadCallback(hiddev);
 }
 
 AsusMiceDriver::~AsusMiceDriver() {
+    delete cb;
     hid_close(device);
 }
 
@@ -26,21 +32,20 @@ AsusMiceDriver::DeviceInfo AsusMiceDriver::get_device_info () {
 
     hid_write(device, req, 65);
 
-    unsigned char res[65];
-    hid_read(device, res, 65);
+    std::vector<uint8_t> res = await_response(req+1, 3);
 
     std::string version;
     std::string dongle_version;
 
+    uint8_t* res_arr = &res[0];
     switch(config.version_type)
     {
         case 0:
             {
-                uint8_t* offset = res + 4;
+                uint8_t* offset = res_arr + 4;
                 version = std::string(offset, offset + 4);
             }
             break;
-
 
         case 1:
             {
@@ -53,7 +58,7 @@ AsusMiceDriver::DeviceInfo AsusMiceDriver::get_device_info () {
 
         case 2:
             {
-                uint8_t* offset = res + 4;
+                uint8_t* offset = res_arr + 4;
                 version = std::string(offset, offset + 4);
                 version = "0." + version.substr(0, 2) + "." + version.substr(2, 2);
                 // no dongle only for non-wireless TUF M5
@@ -120,8 +125,7 @@ AsusMiceDriver::BatteryInfo AsusMiceDriver::get_battery_info () {
 
     hid_write(device, req, 65);
 
-    unsigned char res[65];
-    hid_read(device, res, 65);
+    std::vector<uint8_t> res = await_response(req+1, 2);
 
     BatteryInfo info;
     info._is_ok = false;
@@ -149,8 +153,17 @@ bool AsusMiceDriver::get_wake_state () {
 
     hid_write(device, req, 65);
 
-    unsigned char res[65];
-    hid_read(device, res, 65);
+    std::vector<uint8_t> res = await_response(req+1, 3);
 
 	return (bool) res[4];
+}
+
+std::vector<uint8_t> AsusMiceDriver::await_response (uint8_t* command, uint8_t command_length) {
+    std::promise<std::vector<uint8_t>> prom;
+    std::future future = prom.get_future();
+
+    cb->add_packet(move(prom), command, command_length);
+    std::vector<uint8_t> res = future.get();
+
+    return res;
 }

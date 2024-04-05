@@ -11,6 +11,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 file(GLOB SOURCES
     "OpenAsusMiceDriver.cpp"
 	"AsusMiceDriver.cpp"
+	"ReadCallback.cpp"
 )
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)

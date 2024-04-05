@@ -5,6 +5,8 @@
 #include <map>
 #include <string>
 
+#include "ReadCallback.hpp"
+
 struct AsusMiceConfig {
 	uint8_t connection_type;
 	uint8_t profile_amount;
@@ -80,6 +82,10 @@ class AsusMiceDriver {
 		AsusMiceConfig 	config;
 		hid_device*		device;
 		std::string		name;
+
+	private:
+		ReadCallback* cb;
+		std::vector<uint8_t> await_response (uint8_t* command, uint8_t command_length);
 };
 
 static std::map<uint16_t, AsusMiceConfig> asus_mice_config = {
