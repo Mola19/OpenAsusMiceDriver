@@ -31,6 +31,14 @@ static std::vector<HIDDetectionInformation> hid_devices {
 		0x0001
 	},
 	{
+		"Asus ROG Chakram X USB",
+		0x0B05,
+		0x1A18,
+		0x0000,
+		0xFF01,
+		0x0001
+	},
+	{
 		"Asus ROG Spatha X 2.4 GHz dock",
 		0x0B05,
 		0x1979,
@@ -50,6 +58,14 @@ static std::vector<HIDDetectionInformation> hid_devices {
 		"Asus ROG Keris Wireless AimPoint 2.4 GHz dongle",
 		0x0B05,
 		0x1A68,
+		0x0000,
+		0xFF01,
+		0x0001
+	},
+	{
+		"Asus ROG Keris Wireless AimPoint USB",
+		0x0B05,
+		0x1A66,
 		0x0000,
 		0xFF01,
 		0x0001

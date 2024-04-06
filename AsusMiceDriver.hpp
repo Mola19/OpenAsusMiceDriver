@@ -15,9 +15,11 @@ struct AsusMiceConfig {
 	bool	has_battery;
 };
 
+#define ASUS_ROG_CHAKRAM_X_USB_PID 								0x1A18
 #define ASUS_ROG_CHAKRAM_X_2_4GHZ_PID 							0x1A1A
 #define ASUS_ROG_SPATHA_X_USB_PID  								0x1977
 #define ASUS_ROG_SPATHA_X_2_4GHZ_PID  							0x1979
+#define ASUS_ROG_KERIS_WIRELESS_AIMPOINT_USB_PID	  			0x1A66
 #define ASUS_ROG_KERIS_WIRELESS_AIMPOINT_2_4GHZ_PID  			0x1A68
 #define ASUS_ROG_PUGIO_PID							  			0x1846
 
@@ -112,6 +114,16 @@ static std::map<uint16_t, AsusMiceConfig> asus_mice_config = {
 		}
 	},
 	{
+		ASUS_ROG_CHAKRAM_X_USB_PID,
+		{
+			AsusMiceDriver::ConnectionType::USB,
+			5,
+			4,
+			false,
+			true
+		}
+	},
+	{
 		ASUS_ROG_SPATHA_X_2_4GHZ_PID,
 		{
 			AsusMiceDriver::ConnectionType::DONGLE_2_4,
@@ -138,6 +150,16 @@ static std::map<uint16_t, AsusMiceConfig> asus_mice_config = {
 			5,
 			4,
 			true,
+			true
+		}
+	},
+	{
+		ASUS_ROG_KERIS_WIRELESS_AIMPOINT_USB_PID,
+		{
+			AsusMiceDriver::ConnectionType::USB,
+			5,
+			4,
+			false,
 			true
 		}
 	},
