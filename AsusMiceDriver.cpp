@@ -182,7 +182,7 @@ AsusMiceDriver::BatteryInfo AsusMiceDriver::get_battery_info () {
 }
 
 bool AsusMiceDriver::get_wake_state () {
-    if (!config.has_battery) return true;
+    if (!config.is_wireless) return true;
 
     uint8_t req[65];
     memset(req, 0x00, sizeof(req));
