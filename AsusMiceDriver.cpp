@@ -199,6 +199,46 @@ bool AsusMiceDriver::get_wake_state () {
 	return (bool) res[4];
 }
 
+void AsusMiceDriver::enable_key_logging (bool enable_key_press_events, bool enable_stats) {
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+	
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x51;
+    req[0x02]   = 0x36;
+    req[0x03]   = 0x00;
+    req[0x04]   = 0x00;
+    req[0x05]   = (uint8_t) enable_key_press_events;
+    req[0x06]   = (uint8_t) enable_stats;
+
+    hid_write(device, req, 65);
+
+    await_response(req+1, 2);
+}
+
+// key stats reset everytime they are requested
+// distance is in dots, so you need to divide by the current dpi
+// also some mice use only 16bit, so with high dpi it can overflow relatively quickly
+AsusMiceDriver::KeyStats AsusMiceDriver::get_key_stats () {
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+	
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x12;
+    req[0x02]   = 0x02;
+
+    hid_write(device, req, 65);
+
+    std::vector<uint8_t> res = await_response(req+1, 2);
+
+    KeyStats stats;
+    stats.left_button = res[4] | res[5] << 8;
+    stats.right_button = res[6] | res[7] << 8;
+    stats.distace_traveled = res[8] | res[9] << 8 | res[10] << 16 | res[11] << 24;
+
+	return stats;
+}
+
 std::vector<uint8_t> AsusMiceDriver::await_response (uint8_t* command, uint8_t command_length) {
     std::promise<std::vector<uint8_t>> prom;
     std::future future = prom.get_future();

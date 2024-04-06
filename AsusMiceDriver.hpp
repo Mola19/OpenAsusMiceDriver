@@ -47,6 +47,12 @@ class AsusMiceDriver {
 			uint8_t unknown2;
 		};
 
+		struct KeyStats {
+			uint16_t left_button;
+			uint16_t right_button;
+			uint32_t distace_traveled;
+		};
+
 		enum ConnectionType {
 			USB,
 			DONGLE_2_4,
@@ -81,6 +87,9 @@ class AsusMiceDriver {
 
 		BatteryInfo get_battery_info ();
 		bool get_wake_state();
+
+		void enable_key_logging (bool enable_key_press_events, bool enable_stats);
+		KeyStats get_key_stats ();
 
 		AsusMiceConfig 	config;
 		hid_device*		device;

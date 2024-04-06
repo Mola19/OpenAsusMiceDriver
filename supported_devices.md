@@ -7,6 +7,7 @@
 	- [Performance Features](#performance-features)
 	- [Lighting Features](#lighting-features)
 	- [Key Remapping](#key-remapping)
+	- [Key Stats](#key-stats)
 	- [Battery Features](#battery-features)
 	- [Events](#events)
 	- [Calibration](#calibration)
@@ -49,6 +50,15 @@ Todo
 ## Key Remapping
 
 Todo
+
+## Key Stats
+
+| Device                           | Enable/Disable Key-Logging | Get Key Stats |
+| -------------------------------- | :------------------------: | :-----------: |
+| Asus ROG Chakram X[^1]           |             ✔              |       ✔       |
+| Asus ROG Spatha X                |             ✔              |       ✔       |
+| Asus ROG Keris Wireless AimPoint |             ✔              |       ✔       |
+| Asus ROG Pugio                   |             ✔              |       ✔       |
 
 ## Battery Features
 
