@@ -28,6 +28,7 @@ void ReadCallback::read_thread_fn () {
 
 		if (res[0] == 0xFF && res[1] == 0xAA) {
 			// todo return first element as error
+			if (packets->size() == 0) continue;
 			std::vector res_vec (res, res + 64);
 			packets->at(0)->prom.set_value(res_vec);
 			packets->erase(packets->begin());
