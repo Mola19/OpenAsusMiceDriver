@@ -26,8 +26,8 @@
 | Device                           | Change Profile | Save Profile | Reset Profile | Reset All Profiles |
 | -------------------------------- | :------------: | :----------: | :-----------: | :----------------: |
 | Asus ROG Chakram X[^1]           |       ✔        |      ✔       |       ✔       |         ✔          |
-| Asus ROG Spatha X                |       ✔        |      ⚙       |       ⚙       |         ⚙          |
-| Asus ROG Keris Wireless AimPoint |       ✔        |      ⚙       |       ⚙       |         ⚙          |
+| Asus ROG Spatha X                |       ✔        |      ✔       |       ✔       |         ✔          |
+| Asus ROG Keris Wireless AimPoint |       ✔        |      ✔       |       ✔       |         ✔          |
 | Asus ROG Pugio                   |       ✔        |      ✔       |       ✔       |         ✔          |
 
 ## General Information
