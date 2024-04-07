@@ -2,6 +2,7 @@
 #include <future>
 #include <iostream>
 #include <string>
+#include <cstring>
 
 #include "ReadCallback.hpp"
 

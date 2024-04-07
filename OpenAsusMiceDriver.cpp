@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #include <hidapi.h>
 
 #include "OpenAsusMiceDriver.hpp"
