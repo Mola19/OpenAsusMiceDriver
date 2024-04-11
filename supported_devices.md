@@ -64,9 +64,9 @@ Todo
 
 | Device                           | Get Battery Information | Get Wake State | Set Battery Settings |
 | -------------------------------- | :---------------------: | :------------: | :------------------: |
-| Asus ROG Chakram X[^1]           |            ✔            |       ✔        |          ⚙           |
-| Asus ROG Spatha X                |            ✔            |       ✔        |          ⚙           |
-| Asus ROG Keris Wireless AimPoint |            ✔            |       ✔        |          ⚙           |
+| Asus ROG Chakram X[^1]           |            ✔            |       ✔        |          ✔           |
+| Asus ROG Spatha X                |            ✔            |       ✔        |          ✔           |
+| Asus ROG Keris Wireless AimPoint |            ✔            |       ✔        |          ✔           |
 | Asus ROG Pugio                   |            ❌            |       ❌        |          ❌           |
 
 

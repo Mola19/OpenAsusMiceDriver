@@ -26,35 +26,7 @@ struct AsusMiceConfig {
 
 
 class AsusMiceDriver {
-	public: 
-		struct DeviceInfo {
-			std::string version;
-			std::string dongle_version;
-			uint8_t 	profile_size;
-			uint8_t		mode_size;
-			uint8_t		active_profile;
-			uint8_t		active_dpi_index;
-			uint16_t	active_dpi;
-		};
-
-		struct BatteryInfo {
-			bool	_is_ok;
-
-			uint8_t battery_charge;
-			uint8_t time_to_sleep;
-			uint8_t warning_at;
-			bool	is_charging;
-
-			uint8_t unknown1;
-			uint8_t unknown2;
-		};
-
-		struct KeyStats {
-			uint16_t left_button;
-			uint16_t right_button;
-			uint32_t distace_traveled;
-		};
-
+	public:
 		enum ConnectionType {
 			USB,
 			DONGLE_2_4,
@@ -77,6 +49,34 @@ class AsusMiceDriver {
 			WARNING_NEVER = 0,
 		};
 
+		struct DeviceInfo {
+			std::string version;
+			std::string dongle_version;
+			uint8_t 	profile_size;
+			uint8_t		mode_size;
+			uint8_t		active_profile;
+			uint8_t		active_dpi_index;
+			uint16_t	active_dpi;
+		};
+
+		struct BatteryInfo {
+			bool	_is_ok;
+
+			uint8_t battery_charge;
+			BatteryTimeToSleepValues time_to_sleep;
+			uint8_t warning_at;
+			bool is_charging;
+
+			uint8_t unknown1;
+			uint8_t unknown2;
+		};
+
+		struct KeyStats {
+			uint16_t left_button;
+			uint16_t right_button;
+			uint32_t distace_traveled;
+		};
+
 		AsusMiceDriver () {};
 		AsusMiceDriver (std::string name, hid_device* hiddev, uint16_t pid);
 		~AsusMiceDriver ();
@@ -89,6 +89,7 @@ class AsusMiceDriver {
 
 		BatteryInfo get_battery_info ();
 		bool get_wake_state();
+		void set_battery_settings(BatteryTimeToSleepValues time_to_sleep, uint8_t warning_at);
 
 		void enable_key_logging (bool enable_key_press_events, bool enable_stats);
 		KeyStats get_key_stats ();

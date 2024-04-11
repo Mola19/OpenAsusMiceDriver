@@ -173,7 +173,7 @@ AsusMiceDriver::BatteryInfo AsusMiceDriver::get_battery_info () {
     info._is_ok = false;
 
 	info.battery_charge = res[4];
-	info.time_to_sleep 	= res[5];
+	info.time_to_sleep 	= (BatteryTimeToSleepValues) res[5];
 	info.warning_at		= res[6];
 	info.is_charging	= (bool) res[9];
 	info.unknown1		= res[7];
@@ -198,6 +198,26 @@ bool AsusMiceDriver::get_wake_state () {
     std::vector<uint8_t> res = await_response(req+1, 3);
 
 	return (bool) res[4];
+}
+
+void AsusMiceDriver::set_battery_settings(BatteryTimeToSleepValues time_to_sleep, uint8_t warning_at) {
+    if (!config.has_battery) return;
+    
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x51;
+    req[0x02]   = 0x37;
+    req[0x03]   = 0x00;
+    req[0x04]   = 0x00;
+    req[0x05]   = (uint8_t)time_to_sleep;
+    req[0x06]   = 0x00;
+    req[0x07]   = warning_at;
+
+    hid_write(device, req, 65);
+
+    await_response(req+1, 2);
 }
 
 void AsusMiceDriver::enable_key_logging (bool enable_key_press_events, bool enable_stats) {
