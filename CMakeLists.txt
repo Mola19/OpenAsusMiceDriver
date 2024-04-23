@@ -26,7 +26,4 @@ include(CPack)
 add_subdirectory(dependencies/hidapi ${CMAKE_BINARY_DIR}/dependencies/hidapi)
 target_link_libraries(${PROJECT_NAME} hidapi::hidapi)
 
-add_subdirectory(dependencies/simpleble/simpleble ${CMAKE_BINARY_DIR}/dependencies/simpleble)
-target_link_libraries(${PROJECT_NAME} simpleble::simpleble)
-
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
