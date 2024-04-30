@@ -26,4 +26,10 @@ include(CPack)
 add_subdirectory(dependencies/hidapi ${CMAKE_BINARY_DIR}/dependencies/hidapi)
 target_link_libraries(${PROJECT_NAME} hidapi::hidapi)
 
+include(GNUInstallDirs)
+set(CMAKE_INSTALL_PREFIX /)
+install(TARGETS openasusmicedriver
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
