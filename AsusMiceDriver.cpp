@@ -3,6 +3,7 @@
 #include <string>
 #include <thread>
 #include <cstring>
+#include <vector>
 
 #include <hidapi.h>
 
@@ -218,6 +219,117 @@ void AsusMiceDriver::set_battery_settings(BatteryTimeToSleepValues time_to_sleep
     hid_write(device, req, 65);
 
     await_response(req+1, 2);
+}
+
+AsusMiceDriver::LightingZoneInfo AsusMiceDriver::get_lighting_zone_info (int zone) {
+    if (!config.is_small_packet) return get_lighting_info()[zone];
+
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+	
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x12;
+    req[0x02]   = 0x03;
+    req[0x03]   = zone;
+
+    hid_write(device, req, 65);
+
+    std::vector<uint8_t> res = await_response(req+1, 2);
+
+    LightingZoneInfo zone_info;
+    zone_info._is_ok = true;
+
+    zone_info.mode = config.lighting_modes.at(res[4]);
+    zone_info.mode_raw = res[4];
+    zone_info.brightness = res[5];
+    zone_info.red = res[6];
+    zone_info.green = res[7];
+    zone_info.blue = res[8];
+    zone_info.direction = res[10];
+    zone_info.random = res[11];
+    zone_info.speed = res[12];
+
+	return zone_info;
+}
+
+AsusMiceDriver::LightingZoneInfo AsusMiceDriver::get_dock_lighting () {
+    if (!config.has_dock) {
+        LightingZoneInfo info;
+        info._is_ok = false;
+        return info;
+    };
+
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+	
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x12;
+    req[0x02]   = 0x03;
+    req[0x03]   = 0x03;
+
+    hid_write(device, req, 65);
+
+    std::vector<uint8_t> res = await_response(req+1, 2);
+
+    LightingZoneInfo zone_info;
+    zone_info._is_ok = true;
+
+    zone_info.mode = config.lighting_modes.at(res[4]);
+    zone_info.mode_raw = res[4];
+    zone_info.brightness = res[5];
+    zone_info.red = res[6];
+    zone_info.green = res[7];
+    zone_info.blue = res[8];
+    zone_info.direction = res[10];
+    zone_info.random = res[11];
+    zone_info.speed = res[12];
+
+	return zone_info;
+}
+
+std::vector<AsusMiceDriver::LightingZoneInfo> AsusMiceDriver::get_lighting_info () {
+    if (config.is_small_packet) {
+        std::vector<LightingZoneInfo> info_vec = {};
+
+        for (int i = 0; i < config.lighting_zones.size(); i++) {
+            info_vec.push_back(get_lighting_zone_info(i));
+        }
+
+        return info_vec;
+    }
+
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+	
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x12;
+    req[0x02]   = 0x03;
+    req[0x03]   = 0x00;
+
+    hid_write(device, req, 65);
+
+    std::vector<uint8_t> res = await_response(req+1, 3);
+
+    std::vector<LightingZoneInfo> info_vec = {};
+
+    for (int i = 0; i < config.lighting_zones.size(); i++) {
+        LightingZoneInfo zone_info;
+        zone_info._is_ok = true;
+
+        zone_info.mode = config.lighting_modes.at(res[i*5 + 4]);
+        zone_info.mode_raw = res[i*5 + 4];
+        zone_info.brightness = res[i*5 + 5];
+        zone_info.red = res[i*5 + 6];
+        zone_info.green = res[i*5 + 7];
+        zone_info.blue = res[i*5 + 8];
+        zone_info.direction = res[20];
+        zone_info.random = res[21];
+        zone_info.speed = res[22];
+
+        info_vec.push_back(zone_info);
+    }
+
+    return info_vec;
 }
 
 void AsusMiceDriver::enable_key_logging (bool enable_key_press_events, bool enable_stats) {
