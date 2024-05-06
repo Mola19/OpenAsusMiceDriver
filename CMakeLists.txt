@@ -30,7 +30,6 @@ set_target_properties(openasusmicedriver PROPERTIES PUBLIC_HEADER "OpenAsusMiceD
 
 if (UNIX)
 	include(GNUInstallDirs)
-	set(CMAKE_INSTALL_PREFIX /)
 endif (UNIX)
 
 install(TARGETS openasusmicedriver
