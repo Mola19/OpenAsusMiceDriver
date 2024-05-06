@@ -23,9 +23,6 @@ set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 
-add_subdirectory(dependencies/hidapi ${CMAKE_BINARY_DIR}/dependencies/hidapi)
-target_link_libraries(${PROJECT_NAME} hidapi::hidapi)
-
 set_target_properties(openasusmicedriver
 	PROPERTIES PUBLIC_HEADER "OpenAsusMiceDriver.hpp;AsusMiceDriver.hpp;Devices.hpp;ReadCallback.hpp")
 
@@ -39,6 +36,9 @@ if (UNIX)
 endif (UNIX)
 
 if (MSVC)
+	add_subdirectory(dependencies/hidapi ${CMAKE_BINARY_DIR}/dependencies/hidapi)
+	target_link_libraries(${PROJECT_NAME} hidapi::hidapi)
+
 	install(FILES ${CMAKE_BINARY_DIR}/dependencies/hidapi/src/windows/Release/hidapi.dll DESTINATION bin)
 	install(FILES ${CMAKE_BINARY_DIR}/dependencies/hidapi/src/windows/Release/hidapi.lib DESTINATION lib)
 	install(FILES ${CMAKE_SOURCE_DIR}/dependencies/hidapi/hidapi/hidapi.h DESTINATION include)
