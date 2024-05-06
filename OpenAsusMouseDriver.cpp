@@ -2,11 +2,11 @@
 #include <cstring>
 #include <hidapi.h>
 
-#include "OpenAsusMiceDriver.hpp"
+#include "OpenAsusMouseDriver.hpp"
 #include "Devices.hpp"
-#include "AsusMiceDriver.hpp"
+#include "AsusMouseDriver.hpp"
 
-OpenAsusMiceDriver::OpenAsusMiceDriver () {
+OpenAsusMouseDriver::OpenAsusMouseDriver () {
     int hid_ret = hid_init();
 
 	if (hid_ret == -1) {
@@ -31,7 +31,7 @@ OpenAsusMiceDriver::OpenAsusMiceDriver () {
                     continue;
                 }
 
-                AsusMiceDriver* mouse = new AsusMiceDriver(hid_devices[device_index].name, dev, dev_list->product_id);
+                AsusMouseDriver* mouse = new AsusMouseDriver(hid_devices[device_index].name, dev, dev_list->product_id);
                 device_list.push_back(mouse);
             }
         }
@@ -42,8 +42,8 @@ OpenAsusMiceDriver::OpenAsusMiceDriver () {
 	hid_exit();
 }
 
-OpenAsusMiceDriver::~OpenAsusMiceDriver () {
-    for (AsusMiceDriver* mouse : device_list) {
-        mouse->~AsusMiceDriver();
+OpenAsusMouseDriver::~OpenAsusMouseDriver () {
+    for (AsusMouseDriver* mouse : device_list) {
+        mouse->~AsusMouseDriver();
     }
 }

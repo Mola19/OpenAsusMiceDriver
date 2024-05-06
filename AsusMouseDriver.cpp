@@ -7,23 +7,23 @@
 
 #include <hidapi.h>
 
-#include "AsusMiceDriver.hpp"
+#include "AsusMouseDriver.hpp"
 #include "ReadCallback.hpp"
 
-AsusMiceDriver::AsusMiceDriver (std::string name, hid_device* hiddev, uint16_t pid) {
+AsusMouseDriver::AsusMouseDriver (std::string name, hid_device* hiddev, uint16_t pid) {
     this->name = name;
     device = hiddev;
-	config = asus_mice_config[pid];
+	config = asus_mouse_config[pid];
 
     cb = new ReadCallback(hiddev);
 }
 
-AsusMiceDriver::~AsusMiceDriver() {
+AsusMouseDriver::~AsusMouseDriver() {
     delete cb;
     hid_close(device);
 }
 
-AsusMiceDriver::DeviceInfo AsusMiceDriver::get_device_info () {
+AsusMouseDriver::DeviceInfo AsusMouseDriver::get_device_info () {
 	uint8_t req[65];
     memset(req, 0x00, sizeof(req));
 	
@@ -99,7 +99,7 @@ AsusMiceDriver::DeviceInfo AsusMiceDriver::get_device_info () {
 	return info;
 }
 
-void AsusMiceDriver::set_profile (uint8_t profile) {
+void AsusMouseDriver::set_profile (uint8_t profile) {
     uint8_t req[65];
     memset(req, 0x00, sizeof(req));
 
@@ -113,7 +113,7 @@ void AsusMiceDriver::set_profile (uint8_t profile) {
     await_response(req+1, 3);
 }
 
-void AsusMiceDriver::save_current_profile () {
+void AsusMouseDriver::save_current_profile () {
     uint8_t req[65];
     memset(req, 0x00, sizeof(req));
 
@@ -126,7 +126,7 @@ void AsusMiceDriver::save_current_profile () {
     await_response(req+1, 2);
 }
 
-void AsusMiceDriver::reset_all_profiles () {
+void AsusMouseDriver::reset_all_profiles () {
     uint8_t req[65];
     memset(req, 0x00, sizeof(req));
 
@@ -139,7 +139,7 @@ void AsusMiceDriver::reset_all_profiles () {
     await_response(req+1, 2);
 }
 
-void AsusMiceDriver::reset_current_profile () {
+void AsusMouseDriver::reset_current_profile () {
     uint8_t req[65];
     memset(req, 0x00, sizeof(req));
 
@@ -152,7 +152,7 @@ void AsusMiceDriver::reset_current_profile () {
     await_response(req+1, 2);
 }
 
-AsusMiceDriver::BatteryInfo AsusMiceDriver::get_battery_info () {
+AsusMouseDriver::BatteryInfo AsusMouseDriver::get_battery_info () {
     if (!config.has_battery) {
         BatteryInfo info;
         info._is_ok = false;
@@ -183,7 +183,7 @@ AsusMiceDriver::BatteryInfo AsusMiceDriver::get_battery_info () {
 	return info;
 }
 
-bool AsusMiceDriver::get_wake_state () {
+bool AsusMouseDriver::get_wake_state () {
     if (!config.is_wireless) return true;
 
     uint8_t req[65];
@@ -201,7 +201,7 @@ bool AsusMiceDriver::get_wake_state () {
 	return (bool) res[4];
 }
 
-void AsusMiceDriver::set_battery_settings(BatteryTimeToSleepValues time_to_sleep, uint8_t warning_at) {
+void AsusMouseDriver::set_battery_settings(BatteryTimeToSleepValues time_to_sleep, uint8_t warning_at) {
     if (!config.has_battery) return;
     
     uint8_t req[65];
@@ -221,7 +221,7 @@ void AsusMiceDriver::set_battery_settings(BatteryTimeToSleepValues time_to_sleep
     await_response(req+1, 2);
 }
 
-AsusMiceDriver::LightingZoneInfo AsusMiceDriver::get_lighting_zone_info (int zone) {
+AsusMouseDriver::LightingZoneInfo AsusMouseDriver::get_lighting_zone_info (int zone) {
     if (!config.is_small_packet) return get_lighting_info()[zone];
 
     uint8_t req[65];
@@ -252,7 +252,7 @@ AsusMiceDriver::LightingZoneInfo AsusMiceDriver::get_lighting_zone_info (int zon
 	return zone_info;
 }
 
-AsusMiceDriver::LightingZoneInfo AsusMiceDriver::get_dock_lighting () {
+AsusMouseDriver::LightingZoneInfo AsusMouseDriver::get_dock_lighting () {
     if (!config.has_dock) {
         LightingZoneInfo info;
         info._is_ok = false;
@@ -287,7 +287,7 @@ AsusMiceDriver::LightingZoneInfo AsusMiceDriver::get_dock_lighting () {
 	return zone_info;
 }
 
-std::vector<AsusMiceDriver::LightingZoneInfo> AsusMiceDriver::get_lighting_info () {
+std::vector<AsusMouseDriver::LightingZoneInfo> AsusMouseDriver::get_lighting_info () {
     if (config.is_small_packet) {
         std::vector<LightingZoneInfo> info_vec = {};
 
@@ -332,7 +332,7 @@ std::vector<AsusMiceDriver::LightingZoneInfo> AsusMiceDriver::get_lighting_info 
     return info_vec;
 }
 
-void AsusMiceDriver::enable_key_logging (bool enable_key_press_events, bool enable_stats) {
+void AsusMouseDriver::enable_key_logging (bool enable_key_press_events, bool enable_stats) {
     uint8_t req[65];
     memset(req, 0x00, sizeof(req));
 	
@@ -352,7 +352,7 @@ void AsusMiceDriver::enable_key_logging (bool enable_key_press_events, bool enab
 // key stats reset everytime they are requested
 // distance is in dots, so you need to divide by the current dpi
 // also some mice use only 16bit, so with high dpi it can overflow relatively quickly
-AsusMiceDriver::KeyStats AsusMiceDriver::get_key_stats () {
+AsusMouseDriver::KeyStats AsusMouseDriver::get_key_stats () {
     uint8_t req[65];
     memset(req, 0x00, sizeof(req));
 	
@@ -372,7 +372,7 @@ AsusMiceDriver::KeyStats AsusMiceDriver::get_key_stats () {
 	return stats;
 }
 
-std::vector<uint8_t> AsusMiceDriver::await_response (uint8_t* command, uint8_t command_length) {
+std::vector<uint8_t> AsusMouseDriver::await_response (uint8_t* command, uint8_t command_length) {
     std::promise<std::vector<uint8_t>> prom;
     std::future future = prom.get_future();
 

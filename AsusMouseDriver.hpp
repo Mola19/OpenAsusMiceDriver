@@ -17,7 +17,7 @@
 
 
 
-class AsusMiceDriver {
+class AsusMouseDriver {
 	public:
 		enum ConnectionType {
 			USB,
@@ -80,7 +80,7 @@ class AsusMiceDriver {
 			"Off",
 		};
 
-		struct AsusMiceConfig {
+		struct AsusMouseConfig {
 			uint8_t connection_type;
 			uint8_t profile_amount;
 			uint8_t version_type;
@@ -144,9 +144,9 @@ class AsusMiceDriver {
 			uint32_t distace_traveled;
 		};
 
-		AsusMiceDriver () {};
-		AsusMiceDriver (std::string name, hid_device* hiddev, uint16_t pid);
-		~AsusMiceDriver ();
+		AsusMouseDriver () {};
+		AsusMouseDriver (std::string name, hid_device* hiddev, uint16_t pid);
+		~AsusMouseDriver ();
 
 		DeviceInfo get_device_info ();
 		void set_profile (uint8_t profile);
@@ -165,7 +165,7 @@ class AsusMiceDriver {
 		void enable_key_logging (bool enable_key_press_events, bool enable_stats);
 		KeyStats get_key_stats ();
 
-		AsusMiceConfig 	config;
+		AsusMouseConfig 	config;
 		hid_device*		device;
 		std::string		name;
 
@@ -174,11 +174,11 @@ class AsusMiceDriver {
 		std::vector<uint8_t> await_response (uint8_t* command, uint8_t command_length);
 };
 
-static std::map<uint16_t, AsusMiceDriver::AsusMiceConfig> asus_mice_config = {
+static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = {
 	{
 		ASUS_ROG_CHAKRAM_X_2_4GHZ_PID,
 		{
-			AsusMiceDriver::ConnectionType::DONGLE_2_4,
+			AsusMouseDriver::ConnectionType::DONGLE_2_4,
 			5,
 			4,
 			true,
@@ -196,20 +196,20 @@ static std::map<uint16_t, AsusMiceDriver::AsusMiceConfig> asus_mice_config = {
 			11,
 
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_ZONE_LOGO },
-				{ 0x01, AsusMiceDriver::LIGHTING_ZONE_SCROLLWHEEL },
-				{ 0x02, AsusMiceDriver::LIGHTING_ZONE_UNDERGLOW },
+				{ 0x00, AsusMouseDriver::LIGHTING_ZONE_LOGO },
+				{ 0x01, AsusMouseDriver::LIGHTING_ZONE_SCROLLWHEEL },
+				{ 0x02, AsusMouseDriver::LIGHTING_ZONE_UNDERGLOW },
 			},
 			false,
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_MODE_STATIC },
-				{ 0x01, AsusMiceDriver::LIGHTING_MODE_BREATHING },
-				{ 0x02, AsusMiceDriver::LIGHTING_MODE_COLOR_CYCLE },
-				{ 0x03, AsusMiceDriver::LIGHTING_MODE_WAVE },
-				{ 0x04, AsusMiceDriver::LIGHTING_MODE_REACTIVE },
-				{ 0x05, AsusMiceDriver::LIGHTING_MODE_COMET },
-				{ 0x06, AsusMiceDriver::LIGHTING_MODE_BATTERY },
-				{ 0xF0, AsusMiceDriver::LIGHTING_MODE_OFF },
+				{ 0x00, AsusMouseDriver::LIGHTING_MODE_STATIC },
+				{ 0x01, AsusMouseDriver::LIGHTING_MODE_BREATHING },
+				{ 0x02, AsusMouseDriver::LIGHTING_MODE_COLOR_CYCLE },
+				{ 0x03, AsusMouseDriver::LIGHTING_MODE_WAVE },
+				{ 0x04, AsusMouseDriver::LIGHTING_MODE_REACTIVE },
+				{ 0x05, AsusMouseDriver::LIGHTING_MODE_COMET },
+				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
+				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
 			}
 
 		}
@@ -217,7 +217,7 @@ static std::map<uint16_t, AsusMiceDriver::AsusMiceConfig> asus_mice_config = {
 	{
 		ASUS_ROG_CHAKRAM_X_USB_PID,
 		{
-			AsusMiceDriver::ConnectionType::USB,
+			AsusMouseDriver::ConnectionType::USB,
 			5,
 			4,
 			false,
@@ -235,27 +235,27 @@ static std::map<uint16_t, AsusMiceDriver::AsusMiceConfig> asus_mice_config = {
 			11,
 			
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_ZONE_LOGO },
-				{ 0x01, AsusMiceDriver::LIGHTING_ZONE_SCROLLWHEEL },
-				{ 0x02, AsusMiceDriver::LIGHTING_ZONE_UNDERGLOW },
+				{ 0x00, AsusMouseDriver::LIGHTING_ZONE_LOGO },
+				{ 0x01, AsusMouseDriver::LIGHTING_ZONE_SCROLLWHEEL },
+				{ 0x02, AsusMouseDriver::LIGHTING_ZONE_UNDERGLOW },
 			},
 			false,
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_MODE_STATIC },
-				{ 0x01, AsusMiceDriver::LIGHTING_MODE_BREATHING },
-				{ 0x02, AsusMiceDriver::LIGHTING_MODE_COLOR_CYCLE },
-				{ 0x03, AsusMiceDriver::LIGHTING_MODE_WAVE },
-				{ 0x04, AsusMiceDriver::LIGHTING_MODE_REACTIVE },
-				{ 0x05, AsusMiceDriver::LIGHTING_MODE_COMET },
-				{ 0x06, AsusMiceDriver::LIGHTING_MODE_BATTERY },
-				{ 0xF0, AsusMiceDriver::LIGHTING_MODE_OFF },
+				{ 0x00, AsusMouseDriver::LIGHTING_MODE_STATIC },
+				{ 0x01, AsusMouseDriver::LIGHTING_MODE_BREATHING },
+				{ 0x02, AsusMouseDriver::LIGHTING_MODE_COLOR_CYCLE },
+				{ 0x03, AsusMouseDriver::LIGHTING_MODE_WAVE },
+				{ 0x04, AsusMouseDriver::LIGHTING_MODE_REACTIVE },
+				{ 0x05, AsusMouseDriver::LIGHTING_MODE_COMET },
+				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
+				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
 			}
 		}
 	},
 	{
 		ASUS_ROG_SPATHA_X_2_4GHZ_PID,
 		{
-			AsusMiceDriver::ConnectionType::DONGLE_2_4,
+			AsusMouseDriver::ConnectionType::DONGLE_2_4,
 			5,
 			3,
 			true,
@@ -273,27 +273,27 @@ static std::map<uint16_t, AsusMiceDriver::AsusMiceConfig> asus_mice_config = {
 			11,
 			
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_ZONE_LOGO },
-				{ 0x01, AsusMiceDriver::LIGHTING_ZONE_SCROLLWHEEL },
-				{ 0x02, AsusMiceDriver::LIGHTING_ZONE_UNDERGLOW },
+				{ 0x00, AsusMouseDriver::LIGHTING_ZONE_LOGO },
+				{ 0x01, AsusMouseDriver::LIGHTING_ZONE_SCROLLWHEEL },
+				{ 0x02, AsusMouseDriver::LIGHTING_ZONE_UNDERGLOW },
 			},
 			true,
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_MODE_STATIC },
-				{ 0x01, AsusMiceDriver::LIGHTING_MODE_BREATHING },
-				{ 0x02, AsusMiceDriver::LIGHTING_MODE_COLOR_CYCLE },
-				{ 0x03, AsusMiceDriver::LIGHTING_MODE_WAVE },
-				{ 0x04, AsusMiceDriver::LIGHTING_MODE_REACTIVE },
-				{ 0x05, AsusMiceDriver::LIGHTING_MODE_COMET },
-				{ 0x06, AsusMiceDriver::LIGHTING_MODE_BATTERY },
-				{ 0xF0, AsusMiceDriver::LIGHTING_MODE_OFF },
+				{ 0x00, AsusMouseDriver::LIGHTING_MODE_STATIC },
+				{ 0x01, AsusMouseDriver::LIGHTING_MODE_BREATHING },
+				{ 0x02, AsusMouseDriver::LIGHTING_MODE_COLOR_CYCLE },
+				{ 0x03, AsusMouseDriver::LIGHTING_MODE_WAVE },
+				{ 0x04, AsusMouseDriver::LIGHTING_MODE_REACTIVE },
+				{ 0x05, AsusMouseDriver::LIGHTING_MODE_COMET },
+				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
+				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
 			}
 		}
 	},
 	{
 		ASUS_ROG_SPATHA_X_USB_PID,
 		{
-			AsusMiceDriver::ConnectionType::USB,
+			AsusMouseDriver::ConnectionType::USB,
 			5,
 			3,
 			false,
@@ -311,27 +311,27 @@ static std::map<uint16_t, AsusMiceDriver::AsusMiceConfig> asus_mice_config = {
 			11,
 			
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_ZONE_LOGO },
-				{ 0x01, AsusMiceDriver::LIGHTING_ZONE_SCROLLWHEEL },
-				{ 0x02, AsusMiceDriver::LIGHTING_ZONE_UNDERGLOW },
+				{ 0x00, AsusMouseDriver::LIGHTING_ZONE_LOGO },
+				{ 0x01, AsusMouseDriver::LIGHTING_ZONE_SCROLLWHEEL },
+				{ 0x02, AsusMouseDriver::LIGHTING_ZONE_UNDERGLOW },
 			},
 			false,
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_MODE_STATIC },
-				{ 0x01, AsusMiceDriver::LIGHTING_MODE_BREATHING },
-				{ 0x02, AsusMiceDriver::LIGHTING_MODE_COLOR_CYCLE },
-				{ 0x03, AsusMiceDriver::LIGHTING_MODE_WAVE },
-				{ 0x04, AsusMiceDriver::LIGHTING_MODE_REACTIVE },
-				{ 0x05, AsusMiceDriver::LIGHTING_MODE_COMET },
-				{ 0x06, AsusMiceDriver::LIGHTING_MODE_BATTERY },
-				{ 0xF0, AsusMiceDriver::LIGHTING_MODE_OFF },
+				{ 0x00, AsusMouseDriver::LIGHTING_MODE_STATIC },
+				{ 0x01, AsusMouseDriver::LIGHTING_MODE_BREATHING },
+				{ 0x02, AsusMouseDriver::LIGHTING_MODE_COLOR_CYCLE },
+				{ 0x03, AsusMouseDriver::LIGHTING_MODE_WAVE },
+				{ 0x04, AsusMouseDriver::LIGHTING_MODE_REACTIVE },
+				{ 0x05, AsusMouseDriver::LIGHTING_MODE_COMET },
+				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
+				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
 			}
 		}
 	},
 	{
 		ASUS_ROG_KERIS_WIRELESS_AIMPOINT_2_4GHZ_PID,
 		{
-			AsusMiceDriver::ConnectionType::DONGLE_2_4,
+			AsusMouseDriver::ConnectionType::DONGLE_2_4,
 			5,
 			4,
 			true,
@@ -349,23 +349,23 @@ static std::map<uint16_t, AsusMiceDriver::AsusMiceConfig> asus_mice_config = {
 			0,
 
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_ZONE_LOGO },
+				{ 0x00, AsusMouseDriver::LIGHTING_ZONE_LOGO },
 			},
 			false,
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_MODE_STATIC },
-				{ 0x01, AsusMiceDriver::LIGHTING_MODE_BREATHING },
-				{ 0x02, AsusMiceDriver::LIGHTING_MODE_COLOR_CYCLE },
-				{ 0x04, AsusMiceDriver::LIGHTING_MODE_REACTIVE },
-				{ 0x06, AsusMiceDriver::LIGHTING_MODE_BATTERY },
-				{ 0xF0, AsusMiceDriver::LIGHTING_MODE_OFF },
+				{ 0x00, AsusMouseDriver::LIGHTING_MODE_STATIC },
+				{ 0x01, AsusMouseDriver::LIGHTING_MODE_BREATHING },
+				{ 0x02, AsusMouseDriver::LIGHTING_MODE_COLOR_CYCLE },
+				{ 0x04, AsusMouseDriver::LIGHTING_MODE_REACTIVE },
+				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
+				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
 			}
 		}
 	},
 	{
 		ASUS_ROG_KERIS_WIRELESS_AIMPOINT_USB_PID,
 		{
-			AsusMiceDriver::ConnectionType::USB,
+			AsusMouseDriver::ConnectionType::USB,
 			5,
 			4,
 			false,
@@ -383,23 +383,23 @@ static std::map<uint16_t, AsusMiceDriver::AsusMiceConfig> asus_mice_config = {
 			0,
 
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_ZONE_LOGO },
+				{ 0x00, AsusMouseDriver::LIGHTING_ZONE_LOGO },
 			},
 			false,
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_MODE_STATIC },
-				{ 0x01, AsusMiceDriver::LIGHTING_MODE_BREATHING },
-				{ 0x02, AsusMiceDriver::LIGHTING_MODE_COLOR_CYCLE },
-				{ 0x04, AsusMiceDriver::LIGHTING_MODE_REACTIVE },
-				{ 0x06, AsusMiceDriver::LIGHTING_MODE_BATTERY },
-				{ 0xF0, AsusMiceDriver::LIGHTING_MODE_OFF },
+				{ 0x00, AsusMouseDriver::LIGHTING_MODE_STATIC },
+				{ 0x01, AsusMouseDriver::LIGHTING_MODE_BREATHING },
+				{ 0x02, AsusMouseDriver::LIGHTING_MODE_COLOR_CYCLE },
+				{ 0x04, AsusMouseDriver::LIGHTING_MODE_REACTIVE },
+				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
+				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
 			}
 		}
 	},
 	{
 		ASUS_ROG_PUGIO_PID,
 		{
-			AsusMiceDriver::ConnectionType::USB,
+			AsusMouseDriver::ConnectionType::USB,
 			3,
 			0,
 			false,
@@ -417,18 +417,18 @@ static std::map<uint16_t, AsusMiceDriver::AsusMiceConfig> asus_mice_config = {
 			180,
 
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_ZONE_LOGO },
-				{ 0x01, AsusMiceDriver::LIGHTING_ZONE_SCROLLWHEEL },
-				{ 0x02, AsusMiceDriver::LIGHTING_ZONE_UNDERGLOW },
+				{ 0x00, AsusMouseDriver::LIGHTING_ZONE_LOGO },
+				{ 0x01, AsusMouseDriver::LIGHTING_ZONE_SCROLLWHEEL },
+				{ 0x02, AsusMouseDriver::LIGHTING_ZONE_UNDERGLOW },
 			},
 			false,
 			{ 
-				{ 0x00, AsusMiceDriver::LIGHTING_MODE_STATIC },
-				{ 0x01, AsusMiceDriver::LIGHTING_MODE_BREATHING },
-				{ 0x02, AsusMiceDriver::LIGHTING_MODE_COLOR_CYCLE },
-				{ 0x03, AsusMiceDriver::LIGHTING_MODE_WAVE },
-				{ 0x04, AsusMiceDriver::LIGHTING_MODE_REACTIVE },
-				{ 0x05, AsusMiceDriver::LIGHTING_MODE_COMET },
+				{ 0x00, AsusMouseDriver::LIGHTING_MODE_STATIC },
+				{ 0x01, AsusMouseDriver::LIGHTING_MODE_BREATHING },
+				{ 0x02, AsusMouseDriver::LIGHTING_MODE_COLOR_CYCLE },
+				{ 0x03, AsusMouseDriver::LIGHTING_MODE_WAVE },
+				{ 0x04, AsusMouseDriver::LIGHTING_MODE_REACTIVE },
+				{ 0x05, AsusMouseDriver::LIGHTING_MODE_COMET },
 			}
 		}
 	}

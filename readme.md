@@ -1,8 +1,8 @@
-# OpenAsusMiceDriver
+# OpenAsusMouseDriver
 
 This is a library to control modern Asus mice
 
-- [OpenAsusMiceDriver](#openasusmicedriver)
+- [OpenAsusMouseDriver](#openasusmousedriver)
 	- [Supported Devices](#supported-devices)
     - [Building](#building)
 
