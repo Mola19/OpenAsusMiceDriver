@@ -37,7 +37,7 @@ if (UNIX)
 		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openasusmousedriver)
 endif (UNIX)
 
-if (MSVC)
+if (WIN32)
 	add_subdirectory(dependencies/hidapi ${CMAKE_BINARY_DIR}/dependencies/hidapi)
 	target_link_libraries(${PROJECT_NAME} hidapi::hidapi)
 
@@ -49,6 +49,6 @@ if (MSVC)
 		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-endif (MSVC)
+endif (WIN32)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
