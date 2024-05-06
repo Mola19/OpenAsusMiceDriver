@@ -26,21 +26,27 @@ include(CPack)
 add_subdirectory(dependencies/hidapi ${CMAKE_BINARY_DIR}/dependencies/hidapi)
 target_link_libraries(${PROJECT_NAME} hidapi::hidapi)
 
-set_target_properties(openasusmicedriver PROPERTIES PUBLIC_HEADER "OpenAsusMiceDriver.hpp;AsusMiceDriver.hpp;Devices.hpp;ReadCallback.hpp")
+set_target_properties(openasusmicedriver
+	PROPERTIES PUBLIC_HEADER "OpenAsusMiceDriver.hpp;AsusMiceDriver.hpp;Devices.hpp;ReadCallback.hpp")
 
 if (UNIX)
 	include(GNUInstallDirs)
-endif (UNIX)
 
-install(TARGETS openasusmicedriver
-	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-	PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+	install(TARGETS openasusmicedriver
+		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openasusmicedriver)
+endif (UNIX)
 
 if (MSVC)
 	install(FILES ${CMAKE_BINARY_DIR}/dependencies/hidapi/src/windows/Release/hidapi.dll DESTINATION bin)
 	install(FILES ${CMAKE_BINARY_DIR}/dependencies/hidapi/src/windows/Release/hidapi.lib DESTINATION lib)
 	install(FILES ${CMAKE_SOURCE_DIR}/dependencies/hidapi/hidapi/hidapi.h DESTINATION include)
+
+	install(TARGETS openasusmicedriver
+		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 endif (MSVC)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
