@@ -27,6 +27,8 @@ set_target_properties(openasusmicedriver
 	PROPERTIES PUBLIC_HEADER "OpenAsusMiceDriver.hpp;AsusMiceDriver.hpp;Devices.hpp;ReadCallback.hpp")
 
 if (UNIX)
+	target_include_directories(${PROJECT_NAME} PUBLIC "/usr/include/hidapi")
+
 	include(GNUInstallDirs)
 
 	install(TARGETS openasusmicedriver
