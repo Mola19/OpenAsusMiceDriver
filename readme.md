@@ -38,5 +38,5 @@ sudo make install
 ```
 
 The install directory can be changed using the `-DCMAKE_INSTALL_PREFIX` parameter for `cmake`.
-If you want to dynamically link the library in a project, use the option `-DCMAKE_INSTALL_PREFIX=/usr
+If you want to dynamically link the library in a project, use the option `-DCMAKE_INSTALL_PREFIX=/usr`
 
