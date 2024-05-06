@@ -9,7 +9,7 @@ enable_testing()
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 file(GLOB SOURCES
-    "OpenAsusMiceDriver.cpp"
+	"OpenAsusMiceDriver.cpp"
 	"AsusMiceDriver.cpp"
 	"ReadCallback.cpp"
 )
@@ -26,10 +26,22 @@ include(CPack)
 add_subdirectory(dependencies/hidapi ${CMAKE_BINARY_DIR}/dependencies/hidapi)
 target_link_libraries(${PROJECT_NAME} hidapi::hidapi)
 
-include(GNUInstallDirs)
-set(CMAKE_INSTALL_PREFIX /)
+set_target_properties(openasusmicedriver PROPERTIES PUBLIC_HEADER "OpenAsusMiceDriver.hpp;AsusMiceDriver.hpp;Devices.hpp;ReadCallback.hpp")
+
+if (UNIX)
+	include(GNUInstallDirs)
+	set(CMAKE_INSTALL_PREFIX /)
+endif (UNIX)
+
 install(TARGETS openasusmicedriver
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+if (MSVC)
+	install(FILES ${CMAKE_BINARY_DIR}/dependencies/hidapi/src/windows/Release/hidapi.dll DESTINATION bin)
+	install(FILES ${CMAKE_BINARY_DIR}/dependencies/hidapi/src/windows/Release/hidapi.lib DESTINATION lib)
+	install(FILES ${CMAKE_SOURCE_DIR}/dependencies/hidapi/hidapi/hidapi.h DESTINATION include)
+endif (MSVC)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
