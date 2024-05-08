@@ -61,6 +61,11 @@ class AsusMouseDriver {
 			LIGHTING_MODE_OFF = 0x07,
 		};
 
+		enum LightingDirections {
+			LIGHTING_MODE_CLOCKWISE = 0x00,
+			LIGHTING_MODE_COUNTERCLOCKWISE= 0x01,
+		};
+
 		inline static std::string lighting_zone_names[5] {
 			"Logo",
 			"Scroll Wheel",
