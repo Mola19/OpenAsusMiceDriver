@@ -201,7 +201,7 @@ bool AsusMouseDriver::get_wake_state () {
 	return (bool) res[4];
 }
 
-void AsusMouseDriver::set_battery_settings(BatteryTimeToSleepValues time_to_sleep, uint8_t warning_at) {
+void AsusMouseDriver::set_battery_settings(uint8_t time_to_sleep, uint8_t warning_at) {
     if (!config.has_battery) return;
     
     uint8_t req[65];

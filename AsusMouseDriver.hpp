@@ -117,7 +117,7 @@ class AsusMouseDriver {
 			bool	_is_ok;
 
 			uint8_t battery_charge;
-			BatteryTimeToSleepValues time_to_sleep;
+			uint8_t time_to_sleep;
 			uint8_t warning_at;
 			bool is_charging;
 
@@ -156,7 +156,7 @@ class AsusMouseDriver {
 
 		BatteryInfo get_battery_info ();
 		bool get_wake_state();
-		void set_battery_settings(BatteryTimeToSleepValues time_to_sleep, uint8_t warning_at);
+		void set_battery_settings(uint8_t time_to_sleep, uint8_t warning_at);
 
 		LightingZoneInfo get_lighting_zone_info (int zone);
 		LightingZoneInfo get_dock_lighting ();
