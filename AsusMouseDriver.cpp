@@ -222,6 +222,12 @@ void AsusMouseDriver::set_battery_settings(uint8_t time_to_sleep, uint8_t warnin
 }
 
 AsusMouseDriver::LightingZoneInfo AsusMouseDriver::get_lighting_zone_info (int zone) {
+    if (!config.has_lighting) {
+        LightingZoneInfo info;
+        info._is_ok = false;
+        return info;
+    };
+
     if (!config.is_small_packet) return get_lighting_info()[zone];
 
     uint8_t req[65];
@@ -253,7 +259,7 @@ AsusMouseDriver::LightingZoneInfo AsusMouseDriver::get_lighting_zone_info (int z
 }
 
 AsusMouseDriver::LightingZoneInfo AsusMouseDriver::get_dock_lighting () {
-    if (!config.has_dock) {
+    if (!config.has_lighting || !config.has_dock) {
         LightingZoneInfo info;
         info._is_ok = false;
         return info;
@@ -288,6 +294,14 @@ AsusMouseDriver::LightingZoneInfo AsusMouseDriver::get_dock_lighting () {
 }
 
 std::vector<AsusMouseDriver::LightingZoneInfo> AsusMouseDriver::get_lighting_info () {
+    if (!config.has_lighting) {
+        std::vector<LightingZoneInfo> info_vec = {};
+        LightingZoneInfo info;
+        info._is_ok = false;
+        info_vec.push_back(info);
+        return info_vec;
+    };
+
     if (config.is_small_packet) {
         std::vector<LightingZoneInfo> info_vec = {};
 
