@@ -412,7 +412,7 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 			false,
 
 			true,
-			100,
+			4,
 			1,
 			255,
 			48,
