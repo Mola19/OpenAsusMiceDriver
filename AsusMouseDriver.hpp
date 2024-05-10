@@ -166,6 +166,8 @@ class AsusMouseDriver {
 		LightingZoneInfo get_lighting_zone_info (int zone);
 		LightingZoneInfo get_dock_lighting ();
 		std::vector<LightingZoneInfo> get_lighting_info ();
+		void set_lighting (uint8_t zone, LightingZoneInfo* lighting);
+		void set_lighting (uint8_t zone, uint8_t mode_raw, uint8_t brightness, uint8_t red, uint8_t green, uint8_t blue, uint8_t direction, bool random, uint8_t speed);
 
 		void enable_key_logging (bool enable_key_press_events, bool enable_stats);
 		KeyStats get_key_stats ();

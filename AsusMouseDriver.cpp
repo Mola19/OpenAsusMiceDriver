@@ -212,7 +212,7 @@ void AsusMouseDriver::set_battery_settings(uint8_t time_to_sleep, uint8_t warnin
     req[0x02]   = 0x37;
     req[0x03]   = 0x00;
     req[0x04]   = 0x00;
-    req[0x05]   = (uint8_t)time_to_sleep;
+    req[0x05]   = time_to_sleep;
     req[0x06]   = 0x00;
     req[0x07]   = warning_at;
 
@@ -344,6 +344,45 @@ std::vector<AsusMouseDriver::LightingZoneInfo> AsusMouseDriver::get_lighting_inf
     }
 
     return info_vec;
+}
+
+void AsusMouseDriver::set_lighting (uint8_t zone, LightingZoneInfo* lighting) {
+    set_lighting(
+        zone,
+        lighting->mode_raw,
+        lighting->brightness,
+        lighting->red,
+        lighting->green,
+        lighting->blue,
+        lighting->direction,
+        lighting->random,
+        lighting->speed
+    );
+}
+
+void AsusMouseDriver::set_lighting (uint8_t zone, uint8_t mode_raw, uint8_t brightness, uint8_t red, uint8_t green, uint8_t blue, uint8_t direction, bool random, uint8_t speed) {
+    if (!config.has_lighting) return;
+
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x51;
+    req[0x02]   = 0x28;
+    req[0x03]   = zone;
+    req[0x04]   = 0x00;
+    req[0x05]   = mode_raw;
+    req[0x06]   = brightness;
+    req[0x07]   = red;
+    req[0x08]   = green;
+    req[0x09]   = blue;
+    req[0x0A]   = direction;
+    req[0x0B]   = random;
+    req[0x0C]   = speed;
+
+    hid_write(device, req, 65);
+
+    await_response(req+1, 2);
 }
 
 void AsusMouseDriver::enable_key_logging (bool enable_key_press_events, bool enable_stats) {
