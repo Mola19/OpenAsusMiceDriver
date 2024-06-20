@@ -4,6 +4,7 @@
 #include <thread>
 #include <cstring>
 #include <vector>
+#include <algorithm>
 
 #include <hidapi.h>
 
@@ -383,6 +384,62 @@ void AsusMouseDriver::set_lighting (uint8_t zone, uint8_t mode_raw, uint8_t brig
     hid_write(device, req, 65);
 
     await_response(req+1, 2);
+}
+
+void AsusMouseDriver::set_direct_lighting (std::vector<RGBColor>* leds, uint8_t offset) {
+    if (!config.has_direct) return;
+
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+
+    uint8_t color_amount = std::min(leds->size(), (size_t) 5);
+
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x51;
+    req[0x02]   = 0x29;
+    req[0x03]   = color_amount;
+    req[0x04]   = 0x00;
+    req[0x05]   = offset;
+    
+
+    for (uint8_t i = 0; i < color_amount; i++) {
+        req[0x06 + i * 3] = leds->at(i).red;
+        req[0x07 + i * 3] = leds->at(i).green;
+        req[0x08 + i * 3] = leds->at(i).blue;
+    }
+
+    hid_write(device, req, 65);
+
+    // no response
+}
+
+void AsusMouseDriver::set_direct_lighting (std::vector<RGBColor>* leds) {
+    if (!config.has_direct) return;
+    
+    for (int i = config.led_count; i > 0; i -= 5) {
+
+        uint8_t req[65];
+        memset(req, 0x00, sizeof(req));
+
+        uint8_t color_amount = std::min(i, 5);
+        uint8_t offset = config.led_count - i;
+
+        req[0x00]   = 0x00;
+        req[0x01]   = 0x51;
+        req[0x02]   = 0x29;
+        req[0x03]   = color_amount;
+        req[0x04]   = 0x00;
+        req[0x05]   = offset;
+        
+
+        for (uint8_t i = 0; i < color_amount; i++) {
+            req[0x06 + i * 3] = leds->at(i + offset).red;
+            req[0x07 + i * 3] = leds->at(i + offset).green;
+            req[0x08 + i * 3] = leds->at(i + offset).blue;
+        }
+
+        hid_write(device, req, 65);
+    }
 }
 
 void AsusMouseDriver::enable_key_logging (bool enable_key_press_events, bool enable_stats) {

@@ -106,6 +106,10 @@ class AsusMouseDriver {
 			std::map<uint8_t, LightingZones> lighting_zones;
 			bool	has_dock;
 			std::map<uint8_t, LightingModes> lighting_modes;
+
+			bool 	has_direct;
+			uint8_t led_count;
+			std::map<uint8_t, std::vector<uint8_t>> direct_map;
 		};
 
 		struct DeviceInfo {
@@ -149,6 +153,12 @@ class AsusMouseDriver {
 			uint32_t distace_traveled;
 		};
 
+		struct RGBColor {
+			uint8_t red;
+			uint8_t green;
+			uint8_t blue;
+		};
+
 		AsusMouseDriver () {};
 		AsusMouseDriver (std::string name, hid_device* hiddev, uint16_t pid);
 		~AsusMouseDriver ();
@@ -168,6 +178,8 @@ class AsusMouseDriver {
 		std::vector<LightingZoneInfo> get_lighting_info ();
 		void set_lighting (uint8_t zone, LightingZoneInfo* lighting);
 		void set_lighting (uint8_t zone, uint8_t mode_raw, uint8_t brightness, uint8_t red, uint8_t green, uint8_t blue, uint8_t direction, bool random, uint8_t speed);
+		void set_direct_lighting (std::vector<RGBColor>* leds, uint8_t offset);
+		void set_direct_lighting (std::vector<RGBColor>* leds);
 
 		void enable_key_logging (bool enable_key_press_events, bool enable_stats);
 		KeyStats get_key_stats ();
@@ -217,6 +229,14 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x05, AsusMouseDriver::LIGHTING_MODE_COMET },
 				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
 				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
+			},
+
+			true,
+			9,
+			{
+				{ AsusMouseDriver::LIGHTING_ZONE_LOGO, { 0x07 } },
+				{ AsusMouseDriver::LIGHTING_ZONE_SCROLLWHEEL, { 0x08 } },
+				{ AsusMouseDriver::LIGHTING_ZONE_UNDERGLOW, { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 } }
 			}
 
 		}
@@ -256,6 +276,14 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x05, AsusMouseDriver::LIGHTING_MODE_COMET },
 				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
 				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
+			},
+
+			true,
+			9,
+			{
+				{ AsusMouseDriver::LIGHTING_ZONE_LOGO, { 0x07 } },
+				{ AsusMouseDriver::LIGHTING_ZONE_SCROLLWHEEL, { 0x08 } },
+				{ AsusMouseDriver::LIGHTING_ZONE_UNDERGLOW, { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 } }
 			}
 		}
 	},
@@ -294,6 +322,14 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x05, AsusMouseDriver::LIGHTING_MODE_COMET },
 				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
 				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
+			},
+
+			true,
+			5,
+			{
+				{ AsusMouseDriver::LIGHTING_ZONE_LOGO, { 0x00 } },
+				{ AsusMouseDriver::LIGHTING_ZONE_SCROLLWHEEL, { 0x01 } },
+				{ AsusMouseDriver::LIGHTING_ZONE_UNDERGLOW, { 0x02, 0x03, 0x04 } }
 			}
 		}
 	},
@@ -332,6 +368,14 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x05, AsusMouseDriver::LIGHTING_MODE_COMET },
 				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
 				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
+			},
+
+			true,
+			5,
+			{
+				{ AsusMouseDriver::LIGHTING_ZONE_LOGO, { 0x00 } },
+				{ AsusMouseDriver::LIGHTING_ZONE_SCROLLWHEEL, { 0x01 } },
+				{ AsusMouseDriver::LIGHTING_ZONE_UNDERGLOW, { 0x02, 0x03, 0x04 } }
 			}
 		}
 	},
@@ -366,6 +410,12 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x04, AsusMouseDriver::LIGHTING_MODE_REACTIVE },
 				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
 				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
+			},
+
+			true,
+			1,
+			{
+				{ AsusMouseDriver::LIGHTING_ZONE_LOGO, { 0x00 } }
 			}
 		}
 	},
@@ -400,6 +450,12 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x04, AsusMouseDriver::LIGHTING_MODE_REACTIVE },
 				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
 				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
+			},
+
+			true,
+			1,
+			{
+				{ AsusMouseDriver::LIGHTING_ZONE_LOGO, { 0x00 } }
 			}
 		}
 	},
@@ -436,7 +492,12 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x03, AsusMouseDriver::LIGHTING_MODE_WAVE },
 				{ 0x04, AsusMouseDriver::LIGHTING_MODE_REACTIVE },
 				{ 0x05, AsusMouseDriver::LIGHTING_MODE_COMET },
-			}
+			},
+			
+			false,
+			0,
+			{}
+
 		}
 	}
 };
