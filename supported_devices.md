@@ -45,7 +45,14 @@ Todo
 
 ## Lighting Features
 
-Todo
+| Device                           | Get Lighting Information | Set Lighting | Set Direct Lighting | Get Synced Lighting Frame | Set Synced Lighting Frame |
+| -------------------------------- | :----------------------: | :----------: | :-----------------: | :-----------------------: | :-----------------------: |
+| Asus ROG Chakram X[^1]           |            ✔             |      ✔       |          ✔          |             ⚙             |             ⚙             |
+| Asus ROG Spatha X                |            ✔             |      ✔       |          ✔          |             ⚙             |             ⚙             |
+| Asus ROG Keris Wireless AimPoint |            ✔             |      ✔       |          ✔          |             ⚙             |             ⚙             |
+| Asus ROG Pugio                   |            ✔             |      ✔       |          ❌          |             ⚙             |             ⚙             |
+
+Note: Devices that don't have native direct functionality use the static mode without saving for software generated modes.
 
 ## Key Remapping
 
