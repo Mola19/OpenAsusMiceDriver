@@ -106,6 +106,7 @@ class AsusMouseDriver {
 			std::map<uint8_t, LightingZones> lighting_zones;
 			bool	has_dock;
 			std::map<uint8_t, LightingModes> lighting_modes;
+			bool	has_synced_lighting;
 
 			bool 	has_direct;
 			uint8_t led_count;
@@ -178,6 +179,8 @@ class AsusMouseDriver {
 		std::vector<LightingZoneInfo> get_lighting_info ();
 		void set_lighting (uint8_t zone, LightingZoneInfo* lighting);
 		void set_lighting (uint8_t zone, uint8_t mode_raw, uint8_t brightness, uint8_t red, uint8_t green, uint8_t blue, uint8_t direction, bool random, uint8_t speed);
+		uint8_t get_synced_lighting_frame ();
+		void set_synced_lighting_frame (uint8_t frame);
 		void set_direct_lighting (std::vector<RGBColor>* leds, uint8_t offset);
 		void set_direct_lighting (std::vector<RGBColor>* leds);
 
@@ -230,6 +233,7 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
 				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
 			},
+			true,
 
 			true,
 			9,
@@ -277,6 +281,7 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
 				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
 			},
+			true,
 
 			true,
 			9,
@@ -323,6 +328,7 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
 				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
 			},
+			true,
 
 			true,
 			5,
@@ -369,6 +375,7 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
 				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
 			},
+			true,
 
 			true,
 			5,
@@ -411,6 +418,7 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
 				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
 			},
+			false,
 
 			true,
 			1,
@@ -451,6 +459,7 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x06, AsusMouseDriver::LIGHTING_MODE_BATTERY },
 				{ 0xF0, AsusMouseDriver::LIGHTING_MODE_OFF },
 			},
+			false,
 
 			true,
 			1,
@@ -493,6 +502,7 @@ static std::map<uint16_t, AsusMouseDriver::AsusMouseConfig> asus_mouse_config = 
 				{ 0x04, AsusMouseDriver::LIGHTING_MODE_REACTIVE },
 				{ 0x05, AsusMouseDriver::LIGHTING_MODE_COMET },
 			},
+			true,
 			
 			false,
 			0,

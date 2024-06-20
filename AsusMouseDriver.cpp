@@ -386,6 +386,41 @@ void AsusMouseDriver::set_lighting (uint8_t zone, uint8_t mode_raw, uint8_t brig
     await_response(req+1, 2);
 }
 
+uint8_t AsusMouseDriver::get_synced_lighting_frame () {
+    if (!config.has_synced_lighting) return 0;
+
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+	
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x60;
+    req[0x02]   = 0x00;
+
+    hid_write(device, req, 65);
+
+    std::vector<uint8_t> res = await_response(req+1, 2);
+
+	return res[4];
+}
+
+void AsusMouseDriver::set_synced_lighting_frame (uint8_t frame) {
+    if (!config.has_synced_lighting) return;
+
+    uint8_t req[65];
+    memset(req, 0x00, sizeof(req));
+
+    req[0x00]   = 0x00;
+    req[0x01]   = 0x60;
+    req[0x02]   = 0x01;
+    req[0x03]   = 0x00;
+    req[0x04]   = 0x00;
+    req[0x05]   = frame;
+
+    hid_write(device, req, 65);
+
+    await_response(req+1, 2);
+}
+
 void AsusMouseDriver::set_direct_lighting (std::vector<RGBColor>* leds, uint8_t offset) {
     if (!config.has_direct) return;
 
