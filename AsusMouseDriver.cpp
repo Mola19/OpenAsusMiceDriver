@@ -427,7 +427,7 @@ void AsusMouseDriver::set_direct_lighting (std::vector<RGBColor>* leds, uint8_t 
     uint8_t req[65];
     memset(req, 0x00, sizeof(req));
 
-    uint8_t color_amount = std::min(leds->size(), (size_t) 5);
+    uint8_t color_amount = (uint8_t) std::min(leds->size(), (size_t) 5);
 
     req[0x00]   = 0x00;
     req[0x01]   = 0x51;
